@@ -23,12 +23,12 @@ button:active{transform:translateY(4px);box-shadow:0 2px 0 #a98700}
 .meta{font-size:14px;color:#555;margin-bottom:10px}.opcao{width:100%;display:block;background:#f0f0f0;color:#111;box-shadow:none;border-radius:16px;padding:14px;margin:10px 0;font-size:18px;text-align:left}.opcao:disabled{opacity:1}
 .correta{background:#17a64a!important;color:#fff!important}.errada{background:#d62828!important;color:#fff!important}.comentario{margin-top:14px;background:#fff3bf;color:#111;padding:13px;border-radius:15px;font-size:17px}
 .painel{background:rgba(255,255,255,.14);border:2px solid rgba(255,255,255,.30);border-radius:24px;padding:22px;margin:18px auto;max-width:520px}.placar{font-size:32px;color:#ffd400;margin:22px 0;font-weight:bold}
-footer{position:fixed;bottom:7px;left:0;width:100%;text-align:center;font-size:13px;color:#fff}
+footer{position:fixed;bottom:7px;left:0;width:100%;text-align:center;font-size:13px;color:#fff}#botaoRoleta{min-width:210px}.info{min-height:22px}
 @media(max-width:390px){h1{font-size:27px}.area-roleta{width:300px;height:300px}.roleta{width:300px;height:300px}.nome-setor{left:80px;top:130px}.centro{width:82px;height:82px;font-size:36px}.s1{transform:rotate(30deg) translateY(-106px)}.s2{transform:rotate(90deg) translateY(-106px)}.s3{transform:rotate(150deg) translateY(-106px)}.s4{transform:rotate(210deg) translateY(-106px)}.s5{transform:rotate(270deg) translateY(-106px)}.s6{transform:rotate(330deg) translateY(-106px)}}
 </style>
 </head>
 <body>
-<audio id="musicaRoleta" src="musica.mp3" loop preload="auto"></audio>
+<audio id="musicaRoleta" src="musica.mp3" loop preload="auto" onerror="this.onerror=null;this.src=\'musica.mp3.mp3\';"></audio>
 
 <div class="tela ativa" id="roletaTela">
 <h1>🎡 ROLETA DO CFC</h1>
@@ -63,13 +63,9 @@ function tocarMusica(){
   a.volume = 1;
   a.currentTime = 0;
 
-  const promessa = a.play();
-
-  if (promessa !== undefined) {
-    promessa.catch(function(erro){
-      alert("O navegador bloqueou o áudio. Toque novamente em GIRAR ROLETA.");
-      console.log("Erro no áudio:", erro);
-    });
+  const tentativa = a.play();
+  if(tentativa !== undefined){
+    tentativa.catch(()=>{});
   }
 }
 function pararMusicaSuave(){const a=document.getElementById("musicaRoleta");let fade=setInterval(()=>{if(a.volume>0.06){a.volume=Math.max(0,a.volume-0.06)}else{clearInterval(fade);a.pause();a.currentTime=0;a.volume=1}},120)}
@@ -96,6 +92,15 @@ function pararRoleta(){
 
 function embaralhar(lista){for(let i=lista.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[lista[i],lista[j]]=[lista[j],lista[i]]}return lista}
 
+function prepararQuestao(q){
+ const pares=q.alternativas.map((texto,idx)=>({texto:texto,original:idx}));
+ embaralhar(pares);
+ const nova={...q};
+ nova.alternativas=pares.map(p=>p.texto);
+ nova.correta=pares.findIndex(p=>p.original===q.correta);
+ return nova;
+}
+
 function montarQuizSemRepetir(materia,qtd=5){
  const todas=bancoQuestoes.filter(q=>q.materia===materia);
  const chave="historico_"+materia.replace(/\s+/g,"_");
@@ -115,7 +120,7 @@ function montarQuizSemRepetir(materia,qtd=5){
 
 function iniciarQuiz(){
  questaoAtual=0;acertos=0;
- quizAtual=montarQuizSemRepetir(materiaSorteada,5);
+ quizAtual=montarQuizSemRepetir(materiaSorteada,5).map(prepararQuestao);
  document.getElementById("tituloQuiz").innerHTML=materiaSorteada;
  abrirTela("quizTela");mostrarQuestao();
 }
