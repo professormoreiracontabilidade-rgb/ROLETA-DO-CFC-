@@ -57,7 +57,21 @@ let quizAtual=[],materiaSorteada="",indiceSorteado=0,questaoAtual=0,acertos=0;
 let girando=false,parando=false,angulo=0,velocidade=0,animacao=null;
 
 function abrirTela(id){document.querySelectorAll(".tela").forEach(t=>t.classList.remove("ativa"));document.getElementById(id).classList.add("ativa")}
-function tocarMusica(){const a=document.getElementById("musicaRoleta");a.volume=1;a.currentTime=0;a.play().catch(()=>{})}
+function tocarMusica(){
+  const a = document.getElementById("musicaRoleta");
+  a.muted = false;
+  a.volume = 1;
+  a.currentTime = 0;
+
+  const promessa = a.play();
+
+  if (promessa !== undefined) {
+    promessa.catch(function(erro){
+      alert("O navegador bloqueou o áudio. Toque novamente em GIRAR ROLETA.");
+      console.log("Erro no áudio:", erro);
+    });
+  }
+}
 function pararMusicaSuave(){const a=document.getElementById("musicaRoleta");let fade=setInterval(()=>{if(a.volume>0.06){a.volume=Math.max(0,a.volume-0.06)}else{clearInterval(fade);a.pause();a.currentTime=0;a.volume=1}},120)}
 function controlarRoleta(){if(!girando)iniciarGiroLivre();else if(girando&&!parando)pararRoleta()}
 function iniciarGiroLivre(){girando=true;parando=false;velocidade=85;document.getElementById("resultadoRoleta").innerHTML="Girando rápido...";document.getElementById("botaoRoleta").innerHTML="🛑 PARAR";document.getElementById("botaoRoleta").disabled=false;document.getElementById("roleta").style.transition="none";tocarMusica();animarGiro()}
