@@ -19,7 +19,104 @@ button:active{transform:translateY(4px);box-shadow:0 2px 0 #a98700}
 .s1{transform:rotate(30deg) translateY(-119px)}.s2{transform:rotate(90deg) translateY(-119px)}.s3{transform:rotate(150deg) translateY(-119px)}.s4{transform:rotate(210deg) translateY(-119px)}.s5{transform:rotate(270deg) translateY(-119px)}.s6{transform:rotate(330deg) translateY(-119px)}
 .centro{position:absolute;width:92px;height:92px;background:#111;border:5px solid #fff;border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);display:flex;justify-content:center;align-items:center;font-size:42px;z-index:5;box-shadow:0 0 15px #000}
 .resultado{font-size:23px;color:#ffd400;font-weight:bold;margin-top:12px;min-height:40px}.info{font-size:16px;color:#fff;margin-top:6px}
-.card{background:#fff;color:#111;border-radius:24px;padding:18px;margin:15px auto 50px;font-size:20px;line-height:1.35;text-align:left;max-width:680px;max-height:72vh;overflow:auto}.card strong{color:#092b62}
+.curso-topo{
+  color:#fff;
+  font-size:26px;
+  line-height:1.08;
+  font-weight:1000;
+  letter-spacing:1px;
+  margin:4px auto 10px;
+  text-align:center;
+  text-transform:uppercase;
+  text-shadow:3px 3px 6px #000,0 0 18px rgba(255,255,255,.45);
+}
+.quiz-layout{
+  width:100%;
+  max-width:1080px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:1fr 380px 1fr;
+  gap:14px;
+  align-items:start;
+}
+.webcam-space{
+  min-height:72vh;
+  border:2px dashed rgba(255,255,255,.28);
+  border-radius:24px;
+  background:rgba(255,255,255,.07);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:rgba(255,255,255,.65);
+  font-size:15px;
+  padding:12px;
+}
+.webcam-space::before{content:"ESPAÇO PARA WEBCAM / PROFESSOR"}
+.quiz-centro{width:380px;max-width:100%;margin:0 auto}
+.ferramentas{
+  width:380px;
+  max-width:100%;
+  margin:0 auto 8px;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:6px;
+}
+.ferramentas button{
+  margin:2px;
+  padding:9px 11px;
+  border-radius:14px;
+  font-size:13px;
+  box-shadow:0 4px 0 #a98700;
+}
+.ferramentas .mini-azul{background:#1e88e5;color:#fff;box-shadow:0 4px 0 #0b4f8f}
+.ferramentas .mini-vermelho{background:#e53935;color:#fff;box-shadow:0 4px 0 #8e1715}
+.ferramentas .mini-marca{background:#fff176;color:#111;box-shadow:0 4px 0 #b9a900}
+.ferramentas .mini-cinza{background:#eeeeee;color:#111;box-shadow:0 4px 0 #999}
+.ferramentas .ativo{outline:3px solid #fff;filter:brightness(1.12)}
+.quiz-box{position:relative;width:380px;max-width:100%;margin:0 auto}
+.card{
+  background:#ffffffee;
+  color:#111;
+  border-radius:24px;
+  padding:16px;
+  margin:0 auto 50px;
+  font-size:18px;
+  line-height:1.28;
+  text-align:left;
+  width:380px;
+  max-width:100%;
+  max-height:70vh;
+  overflow:auto;
+  position:relative;
+  z-index:1;
+}
+.card strong{color:#092b62}
+#quadroAnotacao{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:50;
+  background:transparent;
+  pointer-events:none;
+  touch-action:none;
+}
+body.modo-anotacao #quadroAnotacao{pointer-events:auto}
+.opcao.selecionada{background:#dbeafe!important;border:3px solid #1e88e5!important;color:#111!important}
+.controles-quiz{
+  text-align:center;
+  margin-top:10px;
+}
+.controles-quiz button{
+  font-size:16px;
+  padding:11px 18px;
+  border-radius:20px;
+}
+@media(max-width:900px){
+  .quiz-layout{display:block}
+  .webcam-space{display:none}
+}
 .meta{font-size:14px;color:#555;margin-bottom:10px}.opcao{width:100%;display:block;background:#f0f0f0;color:#111;box-shadow:none;border-radius:16px;padding:14px;margin:10px 0;font-size:18px;text-align:left}.opcao:disabled{opacity:1}
 .correta{background:#17a64a!important;color:#fff!important}.errada{background:#d62828!important;color:#fff!important}.comentario{margin-top:14px;background:#fff3bf;color:#111;padding:13px;border-radius:15px;font-size:17px}
 .painel{background:rgba(255,255,255,.14);border:2px solid rgba(255,255,255,.30);border-radius:24px;padding:22px;margin:18px auto;max-width:520px}.placar{font-size:32px;color:#ffd400;margin:22px 0;font-weight:bold}
@@ -31,6 +128,7 @@ footer{position:fixed;bottom:7px;left:0;width:100%;text-align:center;font-size:1
 <audio id="musicaRoleta" src="musica.mp3" loop preload="auto" onerror="this.onerror=null;this.src=\'musica.mp3.mp3\';"></audio>
 
 <div class="tela ativa" id="roletaTela">
+<div class="curso-topo">CURSO DE CONTABILIDADE<br>PROFESSOR MOREIRA</div>
 <h1>🎡 ROLETA DO CFC</h1>
 <p>Responda ao quiz sorteado.</p>
 <div class="seta">▼</div>
@@ -43,7 +141,37 @@ footer{position:fixed;bottom:7px;left:0;width:100%;text-align:center;font-size:1
 <div class="resultado" id="resultadoRoleta"></div><div class="info" id="infoBanco"></div>
 </div>
 
-<div class="tela" id="quizTela"><h1 id="tituloQuiz">Quiz</h1><div class="card"><div id="pergunta"></div><div id="alternativas"></div><div id="comentario"></div></div></div>
+<div class="tela" id="quizTela">
+  <div class="curso-topo">CURSO DE CONTABILIDADE<br>PROFESSOR MOREIRA</div>
+  <h1 id="tituloQuiz">Quiz</h1>
+
+  <div class="quiz-layout">
+    <div class="webcam-space"></div>
+
+    <div class="quiz-centro">
+      <div class="ferramentas">
+        <button class="mini-vermelho" id="btnVermelho" onclick="ativarCaneta('red',4,this)">Caneta vermelha</button>
+        <button class="mini-azul" id="btnAzul" onclick="ativarCaneta('blue',4,this)">Caneta azul</button>
+        <button class="mini-marca" id="btnMarca" onclick="ativarCaneta('rgba(255,230,0,.45)',16,this)">Marca-texto</button>
+        <button class="mini-cinza" onclick="desativarCaneta()">Responder</button>
+        <button class="mini-cinza" onclick="limparAnotacoes()">Limpar anotações</button>
+        <button class="mini-cinza" id="btnOcultar" onclick="alternarOcultarResposta()">Resposta oculta</button>
+      </div>
+
+      <div class="quiz-box">
+        <div class="card" id="cardQuiz">
+          <div id="pergunta"></div>
+          <div id="alternativas"></div>
+          <div id="comentario"></div>
+          <div class="controles-quiz" id="controlesQuiz"></div>
+        </div>
+        <canvas id="quadroAnotacao"></canvas>
+      </div>
+    </div>
+
+    <div class="webcam-space"></div>
+  </div>
+</div>
 <div class="tela" id="fimTela"><h1>🏆 RESULTADO FINAL</h1><div class="painel"><div class="placar" id="placarFinal"></div><button onclick="reiniciar()">GIRAR NOVAMENTE</button></div></div>
 <footer>Curso de Contabilidade Professor Moreira</footer>
 
@@ -55,6 +183,8 @@ const bancoQuestoes=[...questoesGeral,...questoesCustos,...questoesPublica,...qu
 
 let quizAtual=[],materiaSorteada="",indiceSorteado=0,questaoAtual=0,acertos=0;
 let girando=false,parando=false,angulo=0,velocidade=0,animacao=null;
+let respostaOculta=true,respostaPendente=null,timeoutProxima=null;
+let corCaneta="red",larguraCaneta=4,desenhando=false,ctxAnotacao=null;
 
 function abrirTela(id){document.querySelectorAll(".tela").forEach(t=>t.classList.remove("ativa"));document.getElementById(id).classList.add("ativa")}
 function tocarMusica(){
@@ -127,25 +257,138 @@ function iniciarQuiz(){
 
 function mostrarQuestao(){
  const q=quizAtual[questaoAtual];
+ clearTimeout(timeoutProxima);
+ respostaPendente=null;
  document.getElementById("comentario").innerHTML="";
+ document.getElementById("controlesQuiz").innerHTML="";
  document.getElementById("pergunta").innerHTML=`<div class="meta">${q.banca} • ${q.ano} • ${q.assunto} • ${q.nivel}</div><strong>Questão ${questaoAtual+1} de ${quizAtual.length}</strong><br><br>${q.enunciado}`;
  let h="";
  q.alternativas.forEach((op,i)=>{h+=`<button class="opcao" onclick="responder(${i})">${String.fromCharCode(65+i)}) ${op}</button>`});
  document.getElementById("alternativas").innerHTML=h;
+ setTimeout(()=>{ajustarCanvas();limparAnotacoes()},80);
+ atualizarBotaoOcultar();
+}
+
+function alternarOcultarResposta(){
+ respostaOculta=!respostaOculta;
+ atualizarBotaoOcultar();
+}
+
+function atualizarBotaoOcultar(){
+ const b=document.getElementById("btnOcultar");
+ if(!b)return;
+ b.innerHTML=respostaOculta?"Resposta oculta":"Resposta visível";
+ b.classList.toggle("ativo",respostaOculta);
 }
 
 function responder(i){
  const q=quizAtual[questaoAtual],b=document.querySelectorAll(".opcao");
  b.forEach(x=>x.disabled=true);
+ if(respostaOculta){
+   b[i].classList.add("selecionada");
+   respostaPendente=i;
+   document.getElementById("comentario").innerHTML=`<div class="comentario"><strong>Resposta ainda oculta.</strong><br>Comente a questão com os alunos e clique em <strong>Mostrar resposta</strong> quando quiser revelar o gabarito.</div>`;
+   document.getElementById("controlesQuiz").innerHTML=`<button onclick="revelarResposta()">Mostrar resposta</button>`;
+   return;
+ }
+ revelarRespostaDireto(i);
+}
+
+function revelarResposta(){
+ if(respostaPendente===null)return;
+ revelarRespostaDireto(respostaPendente);
+}
+
+function revelarRespostaDireto(i){
+ const q=quizAtual[questaoAtual],b=document.querySelectorAll(".opcao");
+ b.forEach(x=>x.disabled=true);
+ b.forEach(x=>x.classList.remove("selecionada"));
  if(i===q.correta){b[i].classList.add("correta");acertos++}else{b[i].classList.add("errada");b[q.correta].classList.add("correta")}
  document.getElementById("comentario").innerHTML=`<div class="comentario"><strong>Comentário do Professor Moreira:</strong><br>${q.comentario}</div>`;
- setTimeout(()=>{questaoAtual++;if(questaoAtual<quizAtual.length)mostrarQuestao();else finalizarQuiz()},3900)
+ document.getElementById("controlesQuiz").innerHTML=`<button onclick="proximaQuestao()">Próxima questão</button>`;
 }
+
+function proximaQuestao(){
+ questaoAtual++;
+ if(questaoAtual<quizAtual.length)mostrarQuestao();else finalizarQuiz();
+}
+
+function ajustarCanvas(){
+ const c=document.getElementById("quadroAnotacao");
+ const box=document.querySelector(".quiz-box");
+ if(!c||!box)return;
+ const r=box.getBoundingClientRect();
+ const dpr=window.devicePixelRatio||1;
+ c.width=Math.max(1,Math.floor(r.width*dpr));
+ c.height=Math.max(1,Math.floor(r.height*dpr));
+ c.style.width=r.width+"px";
+ c.style.height=r.height+"px";
+ ctxAnotacao=c.getContext("2d");
+ ctxAnotacao.setTransform(dpr,0,0,dpr,0,0);
+}
+
+function ativarCaneta(cor,largura,botao){
+ corCaneta=cor;
+ larguraCaneta=largura;
+ document.body.classList.add("modo-anotacao");
+ document.querySelectorAll(".ferramentas button").forEach(b=>b.classList.remove("ativo"));
+ if(botao)botao.classList.add("ativo");
+}
+
+function desativarCaneta(){
+ document.body.classList.remove("modo-anotacao");
+ document.querySelectorAll(".ferramentas button").forEach(b=>b.classList.remove("ativo"));
+ atualizarBotaoOcultar();
+}
+
+function limparAnotacoes(){
+ const c=document.getElementById("quadroAnotacao");
+ if(!c||!ctxAnotacao)return;
+ ctxAnotacao.clearRect(0,0,c.width,c.height);
+}
+
+function iniciarDesenho(e){
+ const c=document.getElementById("quadroAnotacao");
+ if(!c||!ctxAnotacao)return;
+ desenhando=true;
+ const r=c.getBoundingClientRect();
+ ctxAnotacao.beginPath();
+ ctxAnotacao.moveTo(e.clientX-r.left,e.clientY-r.top);
+ e.preventDefault();
+}
+
+function desenhar(e){
+ if(!desenhando||!ctxAnotacao)return;
+ const c=document.getElementById("quadroAnotacao");
+ const r=c.getBoundingClientRect();
+ ctxAnotacao.lineTo(e.clientX-r.left,e.clientY-r.top);
+ ctxAnotacao.strokeStyle=corCaneta;
+ ctxAnotacao.lineWidth=larguraCaneta;
+ ctxAnotacao.lineCap="round";
+ ctxAnotacao.lineJoin="round";
+ ctxAnotacao.stroke();
+ e.preventDefault();
+}
+
+function pararDesenho(){desenhando=false}
 
 function finalizarQuiz(){abrirTela("fimTela");document.getElementById("placarFinal").innerHTML=`${materiaSorteada}<br><br>Você acertou ${acertos} de ${quizAtual.length}<br><br>${estrelas(acertos,quizAtual.length)}`}
 function estrelas(a,t){const p=a/t;if(p===1)return"⭐⭐⭐⭐⭐";if(p>=.7)return"⭐⭐⭐⭐";if(p>=.5)return"⭐⭐⭐";if(p>=.3)return"⭐⭐";return"⭐"}
 function reiniciar(){document.getElementById("resultadoRoleta").innerHTML="";document.getElementById("botaoRoleta").innerHTML="GIRAR ROLETA";document.getElementById("botaoRoleta").disabled=false;abrirTela("roletaTela")}
 function limparHistorico(){materias.forEach(m=>localStorage.removeItem("historico_"+m.replace(/\s+/g,"_")));document.getElementById("infoBanco").innerHTML="Histórico zerado. As questões voltarão a ser sorteadas.";alert("Histórico de questões apagado!")}
+window.addEventListener("resize",ajustarCanvas);
+window.addEventListener("load",()=>{
+ setTimeout(ajustarCanvas,100);
+ const c=document.getElementById("quadroAnotacao");
+ if(c){
+   c.addEventListener("pointerdown",iniciarDesenho);
+   c.addEventListener("pointermove",desenhar);
+   window.addEventListener("pointerup",pararDesenho);
+   window.addEventListener("pointercancel",pararDesenho);
+ }
+ atualizarBotaoOcultar();
+});
+
 </script>
 </body>
 </html>
